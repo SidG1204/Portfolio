@@ -4,33 +4,33 @@
    */
   /* gradient */
   --bg-gradient-onyx: linear-gradient(
-    to bottom right, 
-    hsl(210, 20%, 25%) 3%, 
+    to bottom right,
+    hsl(210, 20%, 25%) 3%,
     hsl(210, 24%, 16%) 97%
   );
   --bg-gradient-jet: linear-gradient(
-    to bottom right, 
-    hsla(210, 20%, 18%, 0.251) 0%, 
+    to bottom right,
+    hsla(210, 20%, 18%, 0.251) 0%,
     hsla(210, 22%, 11%, 0) 100%
   ), hsl(210, 22%, 13%);
   --bg-gradient-blue-1: linear-gradient(
-    to bottom right, 
-    hsl(210, 100%, 71%) 0%, 
+    to bottom right,
+    hsl(210, 100%, 71%) 0%,
     hsla(210, 100%, 69%, 0) 50%
   );
   --bg-gradient-blue-2: linear-gradient(
-    135deg, 
-    hsla(210, 100%, 71%, 0.251) 0%, 
+    135deg,
+    hsla(210, 100%, 71%, 0.251) 0%,
     hsla(210, 100%, 68%, 0) 59.86%
   ), hsl(210, 22%, 13%);
   --border-gradient-onyx: linear-gradient(
-    to bottom right, 
-    hsl(210, 15%, 25%) 0%, 
+    to bottom right,
+    hsl(210, 15%, 25%) 0%,
     hsla(210, 15%, 25%, 0) 50%
   );
   --text-gradient-blue: linear-gradient(
-    to right, 
-    hsl(210, 100%, 72%), 
+    to right,
+    hsl(210, 100%, 72%),
     hsl(210, 100%, 68%)
   );
 
@@ -126,7 +126,7 @@ input, textarea {
 
 html { font-family: var(--ff-poppins); }
 
-body { 
+body {
   background: var(--smoky-black);
   color: var(--light-gray);
 }
@@ -294,9 +294,49 @@ main {
 }
 
 .avatar-box {
+  position: relative; /* Added: Ensure positioning context for pseudo-elements */
   background: var(--bg-gradient-onyx);
   border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-1);
+  width: 80px; /* Base width for smaller screens */
+  height: 80px; /* Base height for smaller screens */
 }
+
+.avatar-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition-1);
+}
+
+/* Add a subtle hover effect */
+.avatar-box:hover img {
+  transform: scale(1.05);
+}
+
+/* Add border effect */
+.avatar-box::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--border-gradient-onyx);
+  border-radius: inherit;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Add inner shadow effect */
+.avatar-box::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: transparent;
+  border-radius: inherit;
+  z-index: 1;
+  pointer-events: none;
+}
+
 
 .info-content .name {
   color: var(--white-2);
@@ -328,6 +368,10 @@ main {
   box-shadow: var(--shadow-2);
   transition: var(--transition-1);
   z-index: 1;
+  /* Always show icon and hide text by default for smaller screens */
+  display: flex; /* Added: Use flex to center icon */
+  justify-content: center; /* Added: Center icon */
+  align-items: center; /* Added: Center icon */
 }
 
 .info_more-btn::before {
@@ -346,7 +390,13 @@ main {
 .info_more-btn:hover::before,
 .info_more-btn:focus::before { background: var(--bg-gradient-blue-2); }
 
-.info_more-btn span { display: none; }
+.info_more-btn span {
+  display: none; /* Hide text by default */
+}
+
+.info_more-btn ion-icon {
+  display: block; /* Show icon by default */
+}
 
 .sidebar-info_more {
   opacity: 0;
@@ -443,7 +493,7 @@ main {
 .navbar-link:hover,
 .navbar-link:focus { color: var(--light-gray-70); }
 
-.navbar-link.active { 
+.navbar-link.active {
   color: var(--blue-crayola);
 }
 
@@ -475,7 +525,7 @@ main {
 .about-text p { margin-bottom: 15px; }
 
 /**
- * #service 
+ * #service
  */
 
 .service { margin-bottom: 35px; }
@@ -525,11 +575,11 @@ main {
   #FIND ME
 \*-----------------------------------*/
 
-.find-me { 
+.find-me {
   margin-bottom: 30px;
 }
 
-.find-me-title { 
+.find-me-title {
   margin-bottom: 20px;
   position: relative;
   padding-bottom: 7px;
@@ -626,7 +676,7 @@ main {
 .article-title { margin-bottom: 30px; }
 
 /**
- * education and experience 
+ * education and experience
  */
 
 .timeline { margin-bottom: 30px; }
@@ -688,7 +738,7 @@ main {
 }
 
 /**
- * skills 
+ * skills
  */
 
 .skills-title { margin-bottom: 20px; }
@@ -966,7 +1016,7 @@ main {
   background: var(--eerie-black-2);
 }
 
-.form-input::placeholder { 
+.form-input::placeholder {
   font-weight: var(--fw-500);
   color: var(--light-gray-70);
 }
@@ -1085,9 +1135,13 @@ textarea.form-input::-webkit-resizer { display: none; }
 
   .sidebar-info { gap: 25px; }
 
-  .avatar-box { border-radius: 30px; }
+  .avatar-box {
+    width: 120px; /* Adjusted width for larger screens */
+    height: 120px; /* Adjusted height for larger screens */
+    border-radius: 30px;
+  }
 
-  .avatar-box img { width: 120px; }
+  .avatar-box img { width: 100%; height: 100%; } /* Ensure image fills the new size */
 
   .info-content .name { margin-bottom: 15px; }
 
@@ -1097,14 +1151,20 @@ textarea.form-input::-webkit-resizer { display: none; }
     top: -30px;
     right: -30px;
     padding: 10px 15px;
+    /* Show text and hide icon on larger screens */
+    display: flex; /* Use flex to align content */
+    align-items: center; /* Center vertically */
+    gap: 5px; /* Add a small gap between text and icon if both are shown */
   }
 
   .info_more-btn span {
-    display: block;
+    display: block; /* Show text on larger screens */
     font-size: var(--fs-8);
   }
 
-  .info_more-btn ion-icon { display: none; }
+  .info_more-btn ion-icon {
+    display: none; /* Hide icon on larger screens */
+  }
 
   .separator { margin: 32px 0; }
 
@@ -1253,11 +1313,11 @@ textarea.form-input::-webkit-resizer { display: none; }
   .social-links-list {
     grid-template-columns: repeat(3, 1fr);
   }
-  
+
   .find-me-title {
     padding-bottom: 15px;
   }
-  
+
   .find-me-title::after {
     width: 40px;
     height: 5px;
@@ -1345,56 +1405,4 @@ textarea.form-input::-webkit-resizer { display: none; }
   }
 
   .navbar-link { font-weight: var(--fw-500); }
-/* Add this to your existing CSS */
-
-.avatar-box {
-  position: relative;
-  background: var(--bg-gradient-onyx);
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: var(--shadow-1);
-  width: 80px;
-  height: 80px;
-}
-
-.avatar-box img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: var(--transition-1);
-}
-
-/* For responsive adjustments */
-@media (min-width: 580px) {
-  .avatar-box {
-    width: 120px;
-    height: 120px;
-  }
-}
-
-/* Add a subtle hover effect */
-.avatar-box:hover img {
-  transform: scale(1.05);
-}
-
-/* Add border effect */
-.avatar-box::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--border-gradient-onyx);
-  border-radius: inherit;
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* Add inner shadow effect */
-.avatar-box::after {
-  content: "";
-  position: absolute;
-  inset: 1px;
-  background: transparent;
-  border-radius: inherit;
-  z-index: 1;
-  pointer-events: none;
 }
